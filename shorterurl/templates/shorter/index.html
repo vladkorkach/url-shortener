@@ -1,0 +1,41 @@
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<style type="text/css">
+	div{
+		position: absolute;
+		top: 30%;
+		bottom: 70%;
+		width: 100%;
+		text-align: center;
+		align-content: center;
+		font-size: 1.1em;
+		font-family: 'Montserrat', sans-serif;
+	}
+	form {
+		font-size: 1.1em;
+		font-family: 'Montserrat', sans-serif;
+	}
+	body{
+
+		background: #b1deaa;
+	}
+	.custom{
+		font-family: 'Montserrat', sans-serif;
+	}
+</style>
+<div>
+{% block content %}
+    <h1>URL to shorter:</h1>
+    <form method="POST" class="form" action="{% url 'shorterurl' %}">{% csrf_token %}
+        {{ form.as_p }}
+        {% if shortedURL == None and error_message == None %}
+            <button type="submit" class="save btn btn-default">Shorter</button>
+        {% endif %}
+    </form>
+    {% if shortedURL %}
+        <span class="custom">
+            Shortened URL: <strong><a href="/{{shortedURL}}/{{hashing}}">{{shortedURL}}</a></strong>
+        </span>
+    {% endif %}
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+{% endblock %}
+</div>
